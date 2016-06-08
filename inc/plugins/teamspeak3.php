@@ -30,12 +30,12 @@ function teamspeak3_info()
 	(
 		'name'=>'Teamspeak 3 Group Sync',
 		'description'=>'Syncs forum and Teamspeak3 groups.',
-		'website'=>'http://opt-community.de/',
-		'author'=>'Dieter Gobbers',
-		'version'=>'1.1.1',
+		'website'=>'https://github.com/TerranUlm/MyBB-Plugin-Teamspeak3-Sync',
+		'author'=>'Dieter Gobbers (@Terran_ulm)',
+		'version'=>'1.1.2',
 		'codename'=>'opt_teamspeak',
 		'compatibility'=>'18*',
-		'codename'=>'teamspeak3'
+		'codename'=>'opt_teamspeak3'
 	);
 }
 
