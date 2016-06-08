@@ -33,7 +33,7 @@ function teamspeak3_info()
 		'website'=>'https://github.com/TerranUlm/MyBB-Plugin-Teamspeak3-Sync',
 		'author'=>'Dieter Gobbers (@Terran_ulm)',
 		'authorsite' => 'https://opt-community.de/',
-		'version'=>'1.1.2',
+		'version'=>'1.1.3',
 		'codename'=>'opt_teamspeak',
 		'compatibility'=>'18*',
 		'codename'=>'opt_teamspeak3'
