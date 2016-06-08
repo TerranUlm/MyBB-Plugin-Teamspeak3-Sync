@@ -32,6 +32,7 @@ function teamspeak3_info()
 		'description'=>'Syncs forum and Teamspeak3 groups.',
 		'website'=>'https://github.com/TerranUlm/MyBB-Plugin-Teamspeak3-Sync',
 		'author'=>'Dieter Gobbers (@Terran_ulm)',
+		'authorsite' => 'https://opt-community.de/',
 		'version'=>'1.1.2',
 		'codename'=>'opt_teamspeak',
 		'compatibility'=>'18*',
