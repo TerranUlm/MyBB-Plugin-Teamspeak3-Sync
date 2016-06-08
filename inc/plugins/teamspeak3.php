@@ -32,8 +32,8 @@ function teamspeak3_info()
 		'description'=>'Syncs forum and Teamspeak3 groups.',
 		'website'=>'http://opt-community.de/',
 		'author'=>'Dieter Gobbers',
-		'version'=>'1.1.0',
-		'guid'=>'',
+		'version'=>'1.1.1',
+		'codename'=>'opt_teamspeak',
 		'compatibility'=>'18*',
 		'codename'=>'teamspeak3'
 	);
