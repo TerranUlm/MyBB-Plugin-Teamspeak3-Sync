@@ -36,6 +36,8 @@ The account needs only an limited set of permissions (I've put them in a Query G
 * b_client_create_modify_serverquery_login
 * i_client_permission_modify_power **99**
 
+:exclamation: Adjust the numbers to your servers needs!
+
 **_MyBB Settings:_**
 
 The plugin adds a new tab in the ACP for each group where you can configure the correspondig Teamspeak 3 permissions:
