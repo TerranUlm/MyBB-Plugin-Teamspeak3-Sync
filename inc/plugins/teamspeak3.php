@@ -33,10 +33,9 @@ function teamspeak3_info()
 		'website'=>'https://github.com/TerranUlm/MyBB-Plugin-Teamspeak3-Sync',
 		'author'=>'Dieter Gobbers (@Terran_ulm)',
 		'authorsite' => 'https://opt-community.de/',
-		'version'=>'1.1.3',
+		'version'=>'1.1.4',
 		'codename'=>'opt_teamspeak',
-		'compatibility'=>'18*',
-		'codename'=>'opt_teamspeak3'
+		'compatibility'=>'16*,18*'
 	);
 }
 
@@ -72,7 +71,7 @@ function teamspeak3_is_installed()
     global $mybb, $db;
 
     $info=teamspeak3_info();
-    $result = $db->simple_select('settinggroups','gid','name="'.$info['codename'].'"',array('limit'=>1));
+    $result = $db->simple_select('settinggroups','gid',"name='".$info['codename']."'",array('limit'=>1));
     $group = $db->fetch_array($result);
 
     return !empty($group['gid']);
@@ -164,7 +163,7 @@ function teamspeak3_install()
 	{
 		$new_profile_field = array(
 			"name" => 'TeamspeakID '.$i,
-			"description" => 'eindeutige Teamspeak ID, zu finden unter "Einstellungen->Identitäten->Standard->Eindeutige ID"',
+			"description" => 'Unique Teamspeak ID, see "Settings->Identities->Default->Unique ID"',
 			"disporder" => 6+$i,
 			"type" => 'text',
 			"length" => intval('70'),
