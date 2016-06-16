@@ -33,9 +33,9 @@ function teamspeak3_info()
 		'website'=>'https://github.com/TerranUlm/MyBB-Plugin-Teamspeak3-Sync',
 		'author'=>'Dieter Gobbers (@Terran_ulm)',
 		'authorsite' => 'https://opt-community.de/',
-		'version'=>'1.1.4',
+		'version'=>'1.1.5',
 		'codename'=>'opt_teamspeak',
-		'compatibility'=>'16*,18*'
+		'compatibility'=>'18*'
 	);
 }
 
@@ -169,9 +169,7 @@ function teamspeak3_install()
 			"length" => intval('70'),
 			"maxlength" => intval('60'),
 			"required" => intval('0'),
-			"editable" => intval('1'),
-			"hidden" => intval('0'),
-			"postnum" => intval('0')
+			"editable" => intval('1')
 		);
 
 		$fid = $db->insert_query("profilefields", $new_profile_field);
