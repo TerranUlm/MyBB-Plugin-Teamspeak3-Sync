@@ -33,7 +33,7 @@ function teamspeak3_info()
 		'website'=>'https://github.com/TerranUlm/MyBB-Plugin-Teamspeak3-Sync',
 		'author'=>'Dieter Gobbers (@Terran_ulm)',
 		'authorsite' => 'https://opt-community.de/',
-		'version'=>'1.1.5',
+		'version'=>'1.1.6',
 		'codename'=>'opt_teamspeak',
 		'compatibility'=>'18*'
 	);
@@ -169,13 +169,15 @@ function teamspeak3_install()
 			"length" => intval('70'),
 			"maxlength" => intval('60'),
 			"required" => intval('0'),
-			"editable" => intval('1')
+			"viewableby" => '-1',
+			"editableby" => '-1'
 		);
 
 		$fid = $db->insert_query("profilefields", $new_profile_field);
 
 		$db->write_query("ALTER TABLE ".TABLE_PREFIX."userfields ADD fid{$fid} TEXT");
 	}
+	$cache->update_profilefields();
 
 	require_once MYBB_ROOT."/inc/functions_task.php";
 
@@ -223,6 +225,7 @@ function teamspeak3_uninstall()
 
 	$db->delete_query("tasks", "title='{$db->escape_string($lang->ts3)}'");
 	$cache->update_tasks();
+	$cache->update_profilefields();
 }
 
 /* --- Hooks: --- */
