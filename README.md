@@ -2,6 +2,7 @@
 A plugin for MyBB 1.8.x to sync forum groups to TS3 groups.
 
 **Requires the [Teamspeak 3 PHP Framework](http://addons.teamspeak.com/directory/addon/integration/TeamSpeak-3-PHP-Framework.html) installed in the MyBB root folder!**
+
 You only need the "TeamSpeak3" folder found in the "libraries" folder. Upload it to the MyBB root folder.
 
 ## Quick Setup Guide:
