@@ -94,7 +94,7 @@ function teamspeak3_install()
 	);
 	$db->insert_query('settinggroups',$setting_group_array);
 	$group=$db->insert_id();
-	$db->query("ALTER TABLE `".TABLE_PREFIX."usergroups` ADD `ts3_sgid` INT UNSIGNED NULL DEFAULT NULL COMMENT 'Servergroiup ID',  ADD `ts3_cgid` INT UNSIGNED NULL DEFAULT NULL COMMENT 'Channelgroup ID',  ADD `ts3_cid` INT UNSIGNED NULL DEFAULT NULL COMMENT 'Channel ID',  ADD `ts3_order` INT UNSIGNED NULL DEFAULT NULL COMMENT 'Sort Order'");
+	$db->query("ALTER TABLE `".TABLE_PREFIX."usergroups` ADD `ts3_sgid` INT UNSIGNED NULL DEFAULT NULL COMMENT 'Servergroiup ID',  ADD `ts3_cgid` INT UNSIGNED NULL DEFAULT NULL COMMENT 'Channelgroup ID',  ADD `ts3_cid` INT UNSIGNED NULL DEFAULT NULL COMMENT 'Channel ID',  ADD `ts3_order` INT UNSIGNED NULL DEFAULT NULL COMMENT 'Sort Order/Sequence'");
 	$settings=array
 	(
 		'teamspeak3_address'=>array
@@ -260,7 +260,7 @@ function teamspeak3_admin_user_groups_edit_graph_2()
 
 	$channelgroup_options = array(
 		$lang->ts3_cid.":<br />".$lang->ts3_cid_description."<br />".$form->generate_text_box('ts3_cid', $mybb->input['ts3_cid'], array('id' => 'ts3_cid')),
-		$lang->ts3_order.":<br />".$lang->ts3_order_description."<br />".$form->generate_text_box('ts3_order', $mybb->input['ts3_order'], array('id' => 'ts3_order')),
+		$lang->ts3_sort.":<br />".$lang->ts3_sort_description."<br />".$form->generate_text_box('ts3_order', $mybb->input['ts3_order'], array('id' => 'ts3_order')),
 		$lang->ts3_cgid.":<br />".$form->generate_text_box('ts3_cgid', $mybb->input['ts3_cgid'], array('id' => 'ts3_cgid'))
 	);
 	$form_container->output_row($lang->ts3_data, "", "<div class=\"group_settings_bit\">".implode("</div><div class=\"group_settings_bit\">", $channelgroup_options)."</div>");
