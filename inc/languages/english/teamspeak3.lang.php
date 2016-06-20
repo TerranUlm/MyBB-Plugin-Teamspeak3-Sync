@@ -36,8 +36,8 @@ $l['ts3_cgid'] = "Teamspeak 3 Channel Group ID";
 $l['ts3_cgid_description'] = "Primary channel for this group, subchannels inherit the Channel Group automatically unless you assign another group to them.";
 $l['ts3_cid'] = "Teamspeak 3 Channel ID";
 $l['ts3_cid_description'] = "Database ID of the Channel.";
-$l['ts3_order'] = "Sort Order";
-$l['ts3_order_description'] = "highest number wins as a user can be member of one channel group per channel only.";
+$l['ts3_sort'] = "Sorting sequence";
+$l['ts3_sort_description'] = "highest number wins as a user can be member of one channel group per channel only.";
 $l['ts3_data'] = "Teamspeak3 Channel Data";
 $l['ts3_task_description'] = "automatically fix permissions";
 ?>
