@@ -1,8 +1,8 @@
 <?php
 
 /*
-Teamspeak 3 Group Sync Plugin for MyBB
-Copyright (C) 2013 Dieter Gobbers
+TeamSpeak 3 Group Sync Plugin for MyBB
+Copyright (C) 2013-2015 Dieter Gobbers
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -28,12 +28,12 @@ function teamspeak3_info()
 {
 	return array
 	(
-		'name'=>'Teamspeak 3 Group Sync',
-		'description'=>'Syncs forum and Teamspeak3 groups.',
+		'name'=>'TeamSpeak 3 Group Sync',
+		'description'=>'Syncs forum and TeamSpeak 3 groups.',
 		'website'=>'https://github.com/TerranUlm/MyBB-Plugin-Teamspeak3-Sync',
 		'author'=>'Dieter Gobbers (@Terran_ulm)',
 		'authorsite' => 'https://opt-community.de/',
-		'version'=>'1.1.7',
+		'version'=>'1.2.0',
 		'codename'=>'opt_teamspeak',
 		'compatibility'=>'18*'
 	);
@@ -41,9 +41,14 @@ function teamspeak3_info()
 
 function teamspeak3_activate()
 {
-	global $db, $lang, $cache;
+	global $db, $lang, $cache, $mybb;
 
         $lang->load('teamspeak3');
+
+	if (!file_exists($mybb->settings['teamspeak3_framework_path'])) {
+		flash_message("TeamSpeak 3 PHP Framework not found, please specify the path in the 'TeamSpeak 3 Group Sync plugin' settings", 'error');
+		admin_redirect("index.php?module=config-plugins");
+	}
 
 	$result = $db->update_query("tasks", array("enabled" => intval(1)), "title='".$db->escape_string($lang->ts3)."'");
 	$cache->update_tasks();
@@ -73,7 +78,13 @@ function teamspeak3_is_installed()
     $info=teamspeak3_info();
     $result = $db->simple_select('settinggroups','gid',"name='".$info['codename']."'",array('limit'=>1));
     $group = $db->fetch_array($result);
-
+	
+	if (!file_exists($mybb->settings['teamspeak3_framework_path'])) {
+		flash_message("TeamSpeak 3 PHP Framework not found, please specify the path in the 'TeamSpeak 3 Group Sync plugin' settings", 'error');
+		// admin_redirect("index.php?module=config-plugins");
+	}
+	
+	
     return !empty($group['gid']);
 }
 
@@ -97,6 +108,13 @@ function teamspeak3_install()
 	$db->query("ALTER TABLE `".TABLE_PREFIX."usergroups` ADD `ts3_sgid` INT UNSIGNED NULL DEFAULT NULL COMMENT 'Servergroiup ID',  ADD `ts3_cgid` INT UNSIGNED NULL DEFAULT NULL COMMENT 'Channelgroup ID',  ADD `ts3_cid` INT UNSIGNED NULL DEFAULT NULL COMMENT 'Channel ID',  ADD `ts3_order` INT UNSIGNED NULL DEFAULT NULL COMMENT 'Sort Order/Sequence'");
 	$settings=array
 	(
+		'teamspeak3_framework_path'=>array
+		(
+			$lang->ts3_framework_path,
+			$lang->ts3_framework_path_description,
+			'text',
+			MYBB_ROOT . 'TeamSpeak3/TeamSpeak3.php'
+		),
 		'teamspeak3_address'=>array
 		(
 			$lang->ts3_server_address,
@@ -163,7 +181,7 @@ function teamspeak3_install()
 	{
 		$new_profile_field = array(
 			"name" => 'TeamspeakID '.$i,
-			"description" => 'Unique Teamspeak ID, see "Settings->Identities->Default->Unique ID"',
+			"description" => 'Unique TeamSpeak ID, see "Settings->Identities->Default->Unique ID"',
 			"disporder" => 6+$i,
 			"type" => 'text',
 			"length" => intval('70'),
@@ -230,7 +248,7 @@ function teamspeak3_uninstall()
 
 /* --- Hooks: --- */
 
-/* --- Hook #1 - Add Teamspeak Tab --- */
+/* --- Hook #1 - Add TeamSpeak Tab --- */
 
 $plugins->add_hook('admin_user_groups_edit_graph_tabs','teamspeak3_admin_user_groups_edit_graph_tabs_1',1);
 
@@ -242,7 +260,7 @@ function teamspeak3_admin_user_groups_edit_graph_tabs_1(&$tabs)
 	return $tabs;
 }
 
-/* --- Hook #2 - Add Teamspeak Tab Content --- */
+/* --- Hook #2 - Add TeamSpeak Tab Content --- */
 
 $plugins->add_hook('admin_user_groups_edit_graph','teamspeak3_admin_user_groups_edit_graph_2',1);
 
@@ -250,11 +268,16 @@ function teamspeak3_admin_user_groups_edit_graph_2()
 {
 	global $lang, $form, $mybb;
 
+	if (!file_exists($mybb->settings['teamspeak3_framework_path'])) {
+		flash_message("TeamSpeak 3 PHP Framework not found, please specify the path in the 'TeamSpeak 3 Group Sync plugin' settings", 'error');
+		admin_redirect("index.php?module=config-settings");
+	}
+
 	$lang->load('teamspeak3');
 
 	echo "<div id=\"tab_ts\">";
 
-	$form_container = new FormContainer("Teamspeak 3 Mapping");
+	$form_container = new FormContainer("TeamSpeak 3 Mapping");
 
 	$form_container->output_row($lang->ts3_sgid, $lang->ts3_sgid_description, $form->generate_text_box('ts3_sgid', $mybb->input['ts3_sgid'], array('id' => 'ts3_sgid')), 'servergroupid');
 
@@ -330,7 +353,7 @@ function teamspeak3_connect()
 {
         global $mybb;
 
-        require_once MYBB_ROOT . 'TeamSpeak3/TeamSpeak3.php';
+        require_once $mybb->settings['teamspeak3_framework_path'];
 
         $ts3_host=$mybb->settings['teamspeak3_address'];
         $ts3_port=$mybb->settings['teamspeak3_port'];
