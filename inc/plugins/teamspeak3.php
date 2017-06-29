@@ -188,6 +188,7 @@ function teamspeak3_install()
 			"maxlength" => intval('60'),
 			"required" => intval('0'),
 			"viewableby" => '-1',
+			"regex" => '',
 			"editableby" => '-1'
 		);
 
