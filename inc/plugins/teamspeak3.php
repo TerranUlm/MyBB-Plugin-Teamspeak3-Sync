@@ -33,7 +33,7 @@ function teamspeak3_info()
 		'website'=>'https://github.com/TerranUlm/MyBB-Plugin-Teamspeak3-Sync',
 		'author'=>'Dieter Gobbers (@Terran_ulm)',
 		'authorsite' => 'https://opt-community.de/',
-		'version'=>'1.2.0',
+		'version'=>'1.2.1',
 		'codename'=>'opt_teamspeak',
 		'compatibility'=>'18*'
 	);
@@ -105,7 +105,9 @@ function teamspeak3_install()
 	);
 	$db->insert_query('settinggroups',$setting_group_array);
 	$group=$db->insert_id();
-	$db->query("ALTER TABLE `".TABLE_PREFIX."usergroups` ADD `ts3_sgid` INT UNSIGNED NULL DEFAULT NULL COMMENT 'Servergroiup ID',  ADD `ts3_cgid` INT UNSIGNED NULL DEFAULT NULL COMMENT 'Channelgroup ID',  ADD `ts3_cid` INT UNSIGNED NULL DEFAULT NULL COMMENT 'Channel ID',  ADD `ts3_order` INT UNSIGNED NULL DEFAULT NULL COMMENT 'Sort Order/Sequence'");
+	if(! $db->field_exists('ts3_sgid', "usergroups")){
+		$db->query("ALTER TABLE `".TABLE_PREFIX."usergroups` ADD `ts3_sgid` INT UNSIGNED NULL DEFAULT NULL COMMENT 'Servergroiup ID',  ADD `ts3_cgid` INT UNSIGNED NULL DEFAULT NULL COMMENT 'Channelgroup ID',  ADD `ts3_cid` INT UNSIGNED NULL DEFAULT NULL COMMENT 'Channel ID',  ADD `ts3_order` INT UNSIGNED NULL DEFAULT NULL COMMENT 'Sort Order/Sequence'");
+	} 	
 	$settings=array
 	(
 		'teamspeak3_framework_path'=>array
